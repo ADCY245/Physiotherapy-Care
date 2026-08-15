@@ -1,6 +1,6 @@
 # Physiotherapy & Care
 
-A lightweight, production-ready personal physiotherapy practice website for Physiotherapy & Care in Goregaon East, Mumbai, led by Dr. Ronak Bramhbhatt.
+A lightweight, production-ready personal home-visit physiotherapy website for Physiotherapy & Care in Goregaon East, Mumbai, led by Dr. Ronak Brahmbhatt.
 
 ## Run locally
 
@@ -14,6 +14,6 @@ Then open `http://localhost:4173`.
 
 ## Content and imagery
 
-Practice information, treatments, conditions, FAQs, reasons to choose the practice, and image locations live in [`data.js`](./data.js). Replace the empty image values when Dr. Ronak supplies the practice logo, her portrait, or original practice photography. The current hero image is a replaceable remote placeholder.
+Practice information, home-visit messaging, treatments, conditions, FAQs, reasons to choose the practice, and image locations live in [`data.js`](./data.js). The supplied logo, header lockup, and professional footer card are loaded from their Cloudinary assets. Replace the empty image values when Dr. Ronak supplies her portrait or original practice photography.
 
 The appointment form is intentionally frontend-only and does not imply confirmation. Its submit handler is the integration point for email, WhatsApp, a database, an admin dashboard, or calendar scheduling later.

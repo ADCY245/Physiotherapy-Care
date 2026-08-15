@@ -13,6 +13,10 @@ const iconSvgs = {
 
 const heroImage = document.querySelector('.hero-image-wrap img');
 if (heroImage && practice.images.hero) heroImage.src = practice.images.hero;
+document.querySelectorAll('.brand-logo').forEach((image) => { if (practice.images.logo) image.src = practice.images.logo; });
+document.querySelectorAll('.brand-lockup').forEach((image) => { if (practice.images.headerBranding) image.src = practice.images.headerBranding; });
+document.querySelectorAll('.footer-professional img').forEach((image) => { if (practice.images.professionalCard) image.src = practice.images.professionalCard; });
+if (practice.images.pageBackground) document.documentElement.style.setProperty('--page-background-image', `url("${practice.images.pageBackground}")`);
 
 const treatmentGrid = document.querySelector('#treatment-grid');
 const conditionList = document.querySelector('#condition-list');
