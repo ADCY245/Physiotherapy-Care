@@ -8,15 +8,17 @@ export const practice = {
   email: 'drronakbhatt@gmail.com',
   address: 'Goregaon (East), Mumbai – 400063',
   timings: {
-    weekday: 'Monday–Saturday: [ADD TIMINGS]',
-    sunday: 'Sunday: [ADD TIMINGS]'
+    weekday: 'Monday–Saturday: By appointment',
+    sunday: 'Sunday: By appointment'
   },
   socialLinks: {
     instagram: '',
     linkedin: ''
   },
   images: {
-    hero: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=85',
+    hero: './public/images/physiotherapy/01_hero_physiotherapy.jpg',
+    clinicRoom: './public/images/physiotherapy/02_clinic_room.jpg',
+    contactBanner: './public/images/physiotherapy/07_contact_banner.jpg',
     logo: 'https://res.cloudinary.com/utg2ybn1/image/upload/v1786821566/physiotherapy_care_logo.svg',
     headerBranding: 'https://res.cloudinary.com/utg2ybn1/image/upload/v1786821718/physiotherapy_care_header.svg',
     professionalCard: 'https://res.cloudinary.com/utg2ybn1/image/upload/v1786818006/5f58f7d1-0dd7-4f6d-84da-7ec7abcc9226.png',
@@ -28,14 +30,14 @@ export const practice = {
 };
 
 export const treatments = [
-  { number: '01', title: 'Back & Neck Pain', description: 'Guidance for everyday aches, recurring discomfort and movement-related back or neck concerns.', icon: 'back' },
-  { number: '02', title: 'Sports Injuries', description: 'A considered return to activity after strains, sprains or other sports-related injuries.', icon: 'sport' },
-  { number: '03', title: 'Joint Pain & Stiffness', description: 'Support for improving comfortable movement around the joints that matter to you.', icon: 'joint' },
-  { number: '04', title: 'Post-Operative Rehabilitation', description: 'Structured rehabilitation support following surgery, shaped around your clinical guidance.', icon: 'rehab' },
-  { number: '05', title: 'Muscle & Soft Tissue Injuries', description: 'Thoughtful care to help you understand and work through soft tissue discomfort.', icon: 'muscle' },
-  { number: '06', title: 'Posture & Movement Problems', description: 'Understand movement habits and build practical strategies for daily life.', icon: 'posture' },
-  { number: '07', title: 'Mobility & Flexibility', description: 'Work towards more confident, comfortable movement at your own pace.', icon: 'mobility' },
-  { number: '08', title: 'Strength & Functional Rehabilitation', description: 'Build strength that connects to the activities and routines you want to return to.', icon: 'strength' }
+  { number: '01', title: 'Back & Neck Pain', description: 'Guidance for everyday aches, recurring discomfort and movement-related back or neck concerns.', icon: 'back', image: './public/images/physiotherapy/03_musculoskeletal_treatment.jpg' },
+  { number: '02', title: 'Sports Injuries', description: 'A considered return to activity after strains, sprains or other sports-related injuries.', icon: 'sport', image: './public/images/physiotherapy/04_sports_injury_rehabilitation.jpg' },
+  { number: '03', title: 'Joint Pain & Stiffness', description: 'Support for improving comfortable movement around the joints that matter to you.', icon: 'joint', image: './public/images/physiotherapy/03_joint_pain_stiffness.jpg' },
+  { number: '04', title: 'Post-Operative Rehabilitation', description: 'Structured rehabilitation support following surgery, shaped around your clinical guidance.', icon: 'rehab', image: './public/images/physiotherapy/05_post_surgical_rehabilitation.jpg' },
+  { number: '05', title: 'Muscle & Soft Tissue Injuries', description: 'Thoughtful care to help you understand and work through soft tissue discomfort.', icon: 'muscle', image: './public/images/physiotherapy/05_muscle_soft_tissue.jpg' },
+  { number: '06', title: 'Posture & Movement Problems', description: 'Understand movement habits and build practical strategies for daily life.', icon: 'posture', image: './public/images/physiotherapy/06_posture_ergonomics.jpg' },
+  { number: '07', title: 'Mobility & Flexibility', description: 'Work towards more confident, comfortable movement at your own pace.', icon: 'mobility', image: './public/images/physiotherapy/07_mobility_flexibility.jpg' },
+  { number: '08', title: 'Strength & Functional Rehabilitation', description: 'Build strength that connects to the activities and routines you want to return to.', icon: 'strength', image: './public/images/physiotherapy/08_strength_functional_rehab.jpg' }
 ];
 
 export const conditions = ['Low Back Pain', 'Neck Pain', 'Shoulder Pain', 'Knee Pain', 'Sports Injuries', 'Muscle Strains', 'Joint Stiffness', 'Post-Surgical Rehabilitation', 'Postural Problems', 'Movement Restrictions'];

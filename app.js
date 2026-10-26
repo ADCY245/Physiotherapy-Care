@@ -17,6 +17,7 @@ document.querySelectorAll('.brand-logo').forEach((image) => { if (practice.image
 document.querySelectorAll('.brand-lockup').forEach((image) => { if (practice.images.headerBranding) image.src = practice.images.headerBranding; });
 document.querySelectorAll('.footer-professional img').forEach((image) => { if (practice.images.professionalCard) image.src = practice.images.professionalCard; });
 if (practice.images.pageBackground) document.documentElement.style.setProperty('--page-background-image', `url("${practice.images.pageBackground}")`);
+if (practice.images.contactBanner) document.documentElement.style.setProperty('--contact-banner-image', `url("${practice.images.contactBanner}")`);
 
 const treatmentGrid = document.querySelector('#treatment-grid');
 const conditionList = document.querySelector('#condition-list');
@@ -27,6 +28,7 @@ const faqList = document.querySelector('#faq-list');
 if (treatmentGrid) {
   treatmentGrid.innerHTML = treatments.map((item) => `
     <article class="treatment-card reveal">
+      ${item.image ? `<img class="treatment-image" src="${item.image}" alt="${item.title} physiotherapy care" loading="lazy" />` : ''}
       <div class="card-top"><span class="card-number">${item.number}</span><span class="treatment-icon">${iconSvgs[item.icon]}</span></div>
       <h3>${item.title}</h3><p>${item.description}</p>
       <a href="#contact" class="card-link">Learn more <span aria-hidden="true">↗</span></a>
@@ -151,6 +153,19 @@ appointmentForm?.addEventListener('submit', (event) => {
   const email = appointmentForm.querySelector('input[type="email"]');
   if (email.value && !email.checkValidity()) { setFieldError(email, 'Please enter a valid email.'); valid = false; }
   if (!valid) return;
+  const values = new FormData(appointmentForm);
+  const subject = `Home visit enquiry from ${values.get('fullName')}`;
+  const body = [
+    `Name: ${values.get('fullName')}`,
+    `Phone: ${values.get('phone')}`,
+    `Email: ${values.get('email') || 'Not provided'}`,
+    `Preferred date: ${values.get('date')}`,
+    `Preferred time: ${values.get('time')}`,
+    `Area: ${values.get('area')}`,
+    `Concern: ${values.get('reason')}`,
+    `Message: ${values.get('message') || 'Not provided'}`
+  ].join('\n');
+  window.location.href = `mailto:${practice.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   appointmentForm.hidden = true;
   appointmentForm.closest('.modal')?.classList.add('has-success');
   successMessage.hidden = false;
