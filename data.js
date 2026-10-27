@@ -17,7 +17,7 @@ export const practice = {
   },
   images: {
     hero: './public/images/physiotherapy/01_hero_physiotherapy.jpg',
-    clinicRoom: './public/images/physiotherapy/02_clinic_room.jpg',
+    clinicRoom: './public/images/physiotherapy/formal-photo.jpeg',
     contactBanner: './public/images/physiotherapy/07_contact_banner.jpg',
     logo: 'https://res.cloudinary.com/utg2ybn1/image/upload/v1786821566/physiotherapy_care_logo.svg',
     headerBranding: 'https://res.cloudinary.com/utg2ybn1/image/upload/v1786821718/physiotherapy_care_header.svg',

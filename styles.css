@@ -142,7 +142,7 @@ h2 em, h1 em { color: var(--teal-dark); font-style: normal; }
 .about-visual { padding: 0 35px 45px 0; }
 .portrait-placeholder { position: relative; height: 530px; display: grid; place-items: center; overflow: hidden; border-radius: 28px; background: var(--grey); }
 .portrait-placeholder > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: .9; }
-.portrait-placeholder::before { content: ''; position: absolute; width: 300px; height: 420px; bottom: -160px; border-radius: 50% 50% 0 0; background: var(--stone); opacity: .7; }
+.portrait-placeholder::before { content: none; }
 .placeholder-orbit { position: absolute; border: 1px solid rgba(58,192,183,.38); border-radius: 50%; }
 .orbit-one { width: 285px; height: 285px; transform: translate(-24px, 25px); }
 .orbit-two { width: 390px; height: 390px; transform: translate(35px, 40px); border-color: rgba(255,255,255,.4); }
@@ -334,6 +334,7 @@ h2 em, h1 em { color: var(--teal-dark); font-style: normal; }
 .modal-header { padding-right: 35px; }
 .modal-header .eyebrow { margin-bottom: 16px; }
 .modal-header h2 { font-size: clamp(2.2rem, 5vw, 3.35rem); }
+.modal-header h2 em { color: var(--charcoal); }
 .modal-header > p:not(.eyebrow) { margin-top: 16px; color: var(--muted); font-size: 13px; line-height: 1.6; }
 .modal-credential { color: var(--teal-dark) !important; font-size: 11px !important; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
 .appointment-form { margin-top: 30px; }
