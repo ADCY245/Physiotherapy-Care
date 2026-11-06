@@ -1,4 +1,4 @@
-import { practice, conditions, faqs, process, reasons, treatments } from './data.js';
+import { practice, consultationOptions, conditions, faqs, process, reasons, treatments } from './data.js';
 
 const iconSvgs = {
   back: '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 11v12c0 8 5 14 13 14s11-5 11-13V12"/><path d="M12 17h8M28 17h8M13 28h8M27 28h8"/></svg>',
@@ -8,7 +8,9 @@ const iconSvgs = {
   muscle: '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M15 36c-3-6 0-12 5-15l4-9 5 2-2 8c5 2 8 6 7 12-1 6-6 8-12 7-4 0-6-2-7-5Z"/><path d="M19 30c3 2 7 2 11 0"/></svg>',
   posture: '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="25" cy="8" r="4"/><path d="M25 13v13l-6 9M25 26l9 9M25 17l-9 5M18 40h16"/></svg>',
   mobility: '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M13 24c0-7 5-12 11-12s11 5 11 12-5 12-11 12-11-5-11-12Z"/><path d="M24 12v24M13 24h22"/></svg>',
-  strength: '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 18v12M15 14v20M20 19v10M28 19v10M33 14v20M38 18v12M15 24h18"/></svg>'
+  strength: '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 18v12M15 14v20M20 19v10M28 19v10M33 14v20M38 18v12M15 24h18"/></svg>',
+  home: '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="m8 22 16-13 16 13"/><path d="M12 20v18h24V20M20 38V27h8v11"/></svg>',
+  clinic: '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 39h30M12 39V15h24v24M18 15V9h12v6M19 24h10M24 19v10"/></svg>'
 };
 
 const heroImage = document.querySelector('.hero-image-wrap img');
@@ -24,6 +26,17 @@ const conditionList = document.querySelector('#condition-list');
 const processGrid = document.querySelector('#process-grid');
 const whyGrid = document.querySelector('#why-grid');
 const faqList = document.querySelector('#faq-list');
+const consultationGrid = document.querySelector('#consultation-grid');
+
+if (consultationGrid) {
+  consultationGrid.innerHTML = consultationOptions.map((item, index) => `
+    <article class="consultation-card reveal" style="--item-index:${index}">
+      <div class="consultation-card-top"><span class="consultation-badge">OPTION 0${index + 1}</span><span class="consultation-icon">${iconSvgs[item.icon]}</span></div>
+      <h3>${item.label.replace(' Physiotherapy', ' <em>Physiotherapy</em>').replace(' Consultation', ' <em>Consultation</em>')}</h3>
+      <p>${item.description}</p>
+      <button class="card-link js-open-appointment" type="button" data-consultation="${item.value}">${item.value === 'home' ? 'Book a Home Visit' : 'Book an On-Clinic Consultation'} <span aria-hidden="true">↗</span></button>
+    </article>`).join('');
+}
 
 if (treatmentGrid) {
   treatmentGrid.innerHTML = treatments.map((item) => `
@@ -85,20 +98,44 @@ const appointmentModal = document.querySelector('#appointment-modal');
 const bioModal = document.querySelector('#bio-modal');
 const appointmentForm = document.querySelector('#appointment-form');
 const successMessage = document.querySelector('#form-success');
+const consultationSelect = appointmentForm?.querySelector('select[name="consultationType"]');
+const homeVisitField = appointmentForm?.querySelector('[data-home-visit-field]');
 let lastFocused;
 
-const openModal = (modal) => {
+const syncConsultationFields = () => {
+  const isHomeVisit = consultationSelect?.value === 'home';
+  const area = homeVisitField?.querySelector('input[name="area"]');
+  if (homeVisitField) homeVisitField.hidden = !isHomeVisit;
+  if (area) {
+    area.required = isHomeVisit;
+    if (!isHomeVisit) {
+      area.value = '';
+      homeVisitField.classList.remove('has-error');
+      homeVisitField.querySelector('.field-error').textContent = '';
+    }
+  }
+};
+
+consultationSelect?.addEventListener('change', syncConsultationFields);
+syncConsultationFields();
+
+const openModal = (modal, consultationType = '') => {
   if (!modal) return;
   if (modal === appointmentModal && appointmentForm) {
+    appointmentForm.reset();
     appointmentForm.hidden = false;
     appointmentForm.closest('.modal')?.classList.remove('has-success');
     if (successMessage) successMessage.hidden = true;
+    if (consultationSelect) consultationSelect.value = consultationType;
+    appointmentForm.querySelectorAll('.has-error').forEach((field) => field.classList.remove('has-error'));
+    appointmentForm.querySelectorAll('.field-error').forEach((error) => { error.textContent = ''; });
+    syncConsultationFields();
   }
   lastFocused = document.activeElement;
   modal.classList.add('is-visible');
   modal.setAttribute('aria-hidden', 'false');
   document.body.classList.add('modal-open');
-  window.setTimeout(() => modal.querySelector('input, button, a')?.focus(), 50);
+  window.setTimeout(() => modal.querySelector('select, input, button, a')?.focus(), 50);
 };
 
 const closeModal = (modal) => {
@@ -109,7 +146,7 @@ const closeModal = (modal) => {
   lastFocused?.focus?.();
 };
 
-document.querySelectorAll('.js-open-appointment').forEach((button) => button.addEventListener('click', () => openModal(appointmentModal)));
+document.querySelectorAll('.js-open-appointment').forEach((button) => button.addEventListener('click', () => openModal(appointmentModal, button.dataset.consultation || '')));
 document.querySelectorAll('.js-open-bio').forEach((button) => button.addEventListener('click', () => openModal(bioModal)));
 document.querySelectorAll('.modal-close').forEach((button) => button.addEventListener('click', () => closeModal(button.closest('.modal-backdrop'))));
 document.querySelectorAll('.modal-backdrop').forEach((backdrop) => backdrop.addEventListener('click', (event) => { if (event.target === backdrop) closeModal(backdrop); }));
@@ -154,15 +191,17 @@ appointmentForm?.addEventListener('submit', (event) => {
   if (email.value && !email.checkValidity()) { setFieldError(email, 'Please enter a valid email.'); valid = false; }
   if (!valid) return;
   const values = new FormData(appointmentForm);
-  const subject = `Home visit enquiry from ${values.get('fullName')}`;
+  const selectedType = values.get('consultationType') === 'home' ? 'Home Visit Physiotherapy' : 'On-Clinic Consultation';
+  const subject = 'New Physiotherapy Appointment Request';
   const body = [
+    `Consultation type: ${selectedType}`,
     `Name: ${values.get('fullName')}`,
     `Phone: ${values.get('phone')}`,
     `Email: ${values.get('email') || 'Not provided'}`,
     `Preferred date: ${values.get('date')}`,
     `Preferred time: ${values.get('time')}`,
-    `Area: ${values.get('area')}`,
-    `Concern: ${values.get('reason')}`,
+    ...(values.get('consultationType') === 'home' ? [`Home visit area: ${values.get('area')}`] : []),
+    `What they would like help with: ${values.get('reason')}`,
     `Message: ${values.get('message') || 'Not provided'}`
   ].join('\n');
   window.location.href = `mailto:${practice.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
