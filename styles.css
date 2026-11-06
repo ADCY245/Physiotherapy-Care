@@ -279,6 +279,9 @@ h2 em, h1 em { color: var(--teal-dark); font-style: normal; }
 .contact-details small, .contact-details strong { display: block; }
 .contact-details small { color: var(--muted); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
 .contact-details strong { margin-top: 3px; font-family: var(--font-display); font-size: 13px; font-weight: 600; }
+.contact-details .contact-email { display: block; margin-top: 3px; color: var(--charcoal); font-family: var(--font-display); font-size: 13px; font-weight: 600; transition: color .2s ease; }
+.contact-details .contact-email:hover, .contact-details .contact-email:focus-visible { color: var(--teal-dark); }
+.contact-email:focus-visible { outline: 3px solid rgba(58,192,183,.45); outline-offset: 3px; border-radius: 2px; }
 .detail-map-link { display: inline-flex; gap: 6px; margin-top: 7px; }
 .contact-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 22px; margin-top: 34px; }
 .button-dark { background: var(--teal-deep); }
@@ -324,6 +327,7 @@ h2 em, h1 em { color: var(--teal-dark); font-style: normal; }
 .footer-heading { margin-bottom: 8px; color: #fff; font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
 .footer-col a, .footer-col span:not(.footer-heading), .footer-button { color: rgba(255,255,255,.68); font-size: 12px; transition: color .2s ease; }
 .footer-col a:hover, .footer-button:hover { color: #fff; }
+.footer-contact .contact-email:hover, .footer-contact .contact-email:focus-visible { color: var(--teal); }
 .footer-button { padding: 0; border: 0; background: transparent; }
 .disclaimer { display: grid; grid-template-columns: .6fr 1.4fr; gap: 8%; padding: 23px 0; border-top: 0; border-bottom: 0; }
 .disclaimer > span { color: #fff; font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
