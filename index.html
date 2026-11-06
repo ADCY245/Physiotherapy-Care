@@ -73,7 +73,6 @@
           <a class="nav-link" href="#consultations">Consultations</a>
           <a class="nav-link" href="#about">About</a>
           <a class="nav-link" href="#treatments">Treatments</a>
-          <a class="nav-link" href="#conditions">Conditions</a>
           <a class="nav-link" href="#approach">Approach</a>
           <a class="nav-link" href="#faqs">FAQs</a>
           <a class="nav-link" href="#contact">Contact</a>
@@ -89,7 +88,6 @@
         <a class="nav-link" href="#consultations">Consultations</a>
         <a class="nav-link" href="#about">About</a>
         <a class="nav-link" href="#treatments">Treatments</a>
-        <a class="nav-link" href="#conditions">Conditions</a>
         <a class="nav-link" href="#approach">Approach</a>
         <a class="nav-link" href="#faqs">FAQs</a>
         <a class="nav-link" href="#contact">Contact</a>
@@ -103,8 +101,8 @@
         <div class="container hero-grid">
           <div class="hero-content reveal">
             <p class="eyebrow"><span class="eyebrow-line"></span> Physiotherapy services</p>
-            <h1>Personalised physiotherapy.<br /><em>At home or in clinic.</em></h1>
-            <p class="hero-lede">Evidence-based physiotherapy focused on reducing pain, restoring movement and helping you return to the activities you love. Choose the convenience of a home visit or visit us for an on-clinic consultation.</p>
+            <h1>Personalise physiotherapy<br /><em>on the go.</em></h1>
+            <p class="hero-lede">Personalised, evidence-based physiotherapy to help reduce pain, restore movement and support a better quality of life.</p>
             <div class="hero-actions">
               <button class="button js-open-appointment" type="button">Book an Appointment <span aria-hidden="true">↗</span></button>
               <a class="text-link" href="#contact">Contact Us <span aria-hidden="true">→</span></a>
@@ -188,19 +186,6 @@
         </div>
       </section>
 
-      <section class="section conditions-section" id="conditions">
-        <div class="container conditions-grid">
-          <div class="conditions-copy reveal">
-            <p class="eyebrow"><span class="eyebrow-line"></span> Your concerns, understood</p>
-            <h2>Conditions we commonly <em>help with.</em></h2>
-            <p class="lead">From persistent aches to movement restrictions, a careful assessment helps us understand what may be contributing to your symptoms.</p>
-            <p class="small-copy">Every patient is different. Assessment and treatment recommendations are individualised according to your condition and goals.</p>
-            <a class="text-link" href="#contact">Talk to us about your concern <span aria-hidden="true">→</span></a>
-          </div>
-          <div class="condition-list reveal reveal-delay-1" id="condition-list"></div>
-        </div>
-      </section>
-
       <section class="section approach-section" id="approach">
         <div class="container">
           <div class="approach-heading reveal">
@@ -231,15 +216,16 @@
         </div>
       </section>
 
-      <section class="section why-section">
+      <section class="section testimonial-section" id="testimonials">
         <div class="container">
           <div class="section-heading-row centered reveal">
             <div>
-              <p class="eyebrow"><span class="eyebrow-line"></span> Why Physiotherapy &amp; Care</p>
-              <h2>Professional care, <em>made personal.</em></h2>
+              <p class="eyebrow"><span class="eyebrow-line"></span> Client experiences</p>
+              <h2>Words that <em>inspire our care.</em></h2>
             </div>
+            <p class="section-intro">Every recovery journey is different. Hear about the experiences of people who have trusted Physiotherapy &amp; Care with their movement, mobility and wellbeing.</p>
           </div>
-          <div class="why-grid" id="why-grid"></div>
+          <div class="testimonials-grid" id="testimonials-grid" aria-live="polite"></div>
         </div>
       </section>
 
@@ -274,15 +260,15 @@
               <a href="tel:+918591259330"><span class="detail-icon">↗</span><span><small>Call us</small><strong>+91 8591 259 330</strong></span></a>
               <a href="mailto:drronak@physiotherapyandcare.in"><span class="detail-icon">@</span><span><small>Email</small><strong>drronak@physiotherapyandcare.in</strong></span></a>
               <div><span class="detail-icon">⌂</span><span><small>Home visit service area</small><strong>Goregaon (East) and nearby areas, Mumbai</strong></span></div>
-              <div><span class="detail-icon">⌖</span><span><small>On-clinic consultation</small><strong>Available by appointment</strong></span></div>
+              <div><span class="detail-icon">⌖</span><span><small>On-clinic consultation</small><strong data-clinic-address="display">Clinic location</strong><a class="detail-map-link" data-clinic-map href="#" target="_blank" rel="noreferrer">View Clinic Location <span aria-hidden="true">↗</span></a></span></div>
             </div>
             <div class="contact-actions"><button class="button button-dark js-open-appointment" type="button">Book an Appointment <span aria-hidden="true">↗</span></button><a class="contact-pill" href="https://wa.me/918591259330?text=Hello%20Physiotherapy%20%26%20Care%2C%20I%20would%20like%20to%20enquire%20about%20an%20appointment." target="_blank" rel="noreferrer">WhatsApp us <span aria-hidden="true">↗</span></a></div>
           </div>
           <div class="map-placeholder reveal reveal-delay-1">
             <div class="map-grid-lines" aria-hidden="true"></div>
             <div class="map-pin"><span>⌖</span></div>
-            <div class="map-card"><span class="map-card-mark">P<span>&amp;</span>C</span><span><strong>Home visits + on-clinic care</strong><small>Goregaon (East), Mumbai · By appointment</small></span></div>
-            <span class="map-note">Exact clinic address to be confirmed</span>
+            <a class="map-card" data-clinic-map href="#" target="_blank" rel="noreferrer"><span class="map-card-mark">P<span>&amp;</span>C</span><span><strong>On-clinic consultation</strong><small data-clinic-address="display">Clinic location</small></span></a>
+            <span class="map-note">View clinic location ↗</span>
           </div>
         </div>
       </section>
@@ -295,7 +281,7 @@
     <footer class="site-footer">
       <div class="container footer-top">
         <div class="footer-brand"><a class="brand footer-logo" href="#home"><span class="brand-assets"><img class="brand-logo" src="https://res.cloudinary.com/utg2ybn1/image/upload/v1786821566/physiotherapy_care_logo.svg" alt="Physiotherapy &amp; Care logo" /><img class="brand-lockup" src="https://res.cloudinary.com/utg2ybn1/image/upload/v1786821718/physiotherapy_care_header.svg" alt="Physiotherapy &amp; Care — your benevolent physio" /></span><span class="brand-mark" aria-hidden="true"><span class="brand-mark-arc"></span><span class="brand-mark-dot"></span></span><span class="brand-copy"><span class="brand-name">Physiotherapy <i>&amp;</i> Care</span><span class="brand-location">Goregaon East · Mumbai</span></span></a><p>Personalised physiotherapy through home visits and on-clinic consultations.</p></div>
-        <div class="footer-col"><span class="footer-heading">Explore</span><a href="#consultations">Consultations</a><a href="#about">About</a><a href="#treatments">Treatments</a><a href="#conditions">Conditions</a><a href="#approach">Approach</a></div>
+        <div class="footer-col"><span class="footer-heading">Explore</span><a href="#consultations">Consultations</a><a href="#about">About</a><a href="#treatments">Treatments</a><a href="#testimonials">Client experiences</a><a href="#approach">Approach</a></div>
         <div class="footer-col"><span class="footer-heading">Helpful</span><a href="#faqs">FAQs</a><a href="#contact">Contact</a><button class="footer-button js-open-appointment" type="button">Book an Appointment</button></div>
         <div class="footer-col footer-contact"><span class="footer-heading">Contact</span><a href="tel:+918591259330">+91 8591 259 330</a><a href="mailto:drronak@physiotherapyandcare.in">drronak@physiotherapyandcare.in</a><span>Goregaon (East), Mumbai</span></div>
         <div class="footer-professional"><span class="footer-professional-mark" aria-hidden="true">RB</span><div><strong>Dr. Ronak Brahmbhatt</strong><span>PHYSIOTHERAPIST</span><small>BPT · Cert. MDT · LSCCS · MIAP</small><small>Reg. no.: 2021/11/PT/009813</small></div></div>
@@ -311,6 +297,7 @@
         <form class="appointment-form" id="appointment-form" novalidate>
           <div class="form-grid">
             <label class="full-field">Select Consultation Type <span>*</span><select name="consultationType" required><option value="">Choose how you would like to be seen</option><option value="home">Home Visit Physiotherapy</option><option value="clinic">On-Clinic Consultation</option></select><small class="field-error"></small></label>
+            <div class="clinic-location-note" data-clinic-location hidden><strong>Your consultation will take place at:</strong><span data-clinic-address></span><a data-clinic-map href="#" target="_blank" rel="noreferrer">View Clinic Location ↗</a></div>
             <label>Full Name <span>*</span><input name="fullName" type="text" autocomplete="name" required placeholder="Your name" /><small class="field-error"></small></label>
             <label>Phone Number <span>*</span><input name="phone" type="tel" autocomplete="tel" required pattern="[0-9+()\-\s]{8,}" placeholder="+91 ..." /><small class="field-error"></small></label>
             <label>Email <input name="email" type="email" autocomplete="email" placeholder="you@example.com" /><small class="field-error"></small></label>

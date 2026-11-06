@@ -7,6 +7,11 @@ export const practice = {
   phoneHref: '+918591259330',
   email: 'drronak@physiotherapyandcare.in',
   address: 'Goregaon (East), Mumbai – 400063',
+  clinic: {
+    address: '5V99+MF, Yashodham, Goregaon East, Mumbai, Maharashtra 400063',
+    displayAddress: 'Yashodham, Goregaon East, Mumbai – 400063',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=5V99%2BMF%2C%20Yashodham%2C%20Goregaon%20East%2C%20Mumbai%2C%20Maharashtra%20400063'
+  },
   timings: {
     weekday: 'Monday–Saturday: By appointment',
     sunday: 'Sunday: By appointment'
@@ -30,12 +35,12 @@ export const practice = {
 };
 
 export const treatments = [
-  { number: '01', title: 'Back & Neck Pain', description: 'Guidance for everyday aches, recurring discomfort and movement-related back or neck concerns.', icon: 'back', image: './public/images/physiotherapy/03_musculoskeletal_treatment.jpg' },
-  { number: '02', title: 'Sports Injuries', description: 'A considered return to activity after strains, sprains or other sports-related injuries.', icon: 'sport', image: './public/images/physiotherapy/04_sports_injury_rehabilitation.jpg' },
+  { number: '01', title: 'Back & Neck Pain', description: 'Guidance for everyday aches, recurring discomfort and movement-related back or neck concerns.', icon: 'back', image: './public/images/physiotherapy/03_musculoskeletal_treatment.png?v=20261106' },
+  { number: '02', title: 'Sports Injuries', description: 'A considered return to activity after strains, sprains or other sports-related injuries.', icon: 'sport', image: './public/images/physiotherapy/04_sports_injury_rehabilitation.png?v=20261106' },
   { number: '03', title: 'Joint Pain & Stiffness', description: 'Support for improving comfortable movement around the joints that matter to you.', icon: 'joint', image: './public/images/physiotherapy/03_joint_pain_stiffness.jpg' },
-  { number: '04', title: 'Post-Operative Rehabilitation', description: 'Structured rehabilitation support following surgery, shaped around your clinical guidance.', icon: 'rehab', image: './public/images/physiotherapy/05_post_surgical_rehabilitation.jpg' },
+  { number: '04', title: 'Post-Operative Rehabilitation', description: 'Structured rehabilitation support following surgery, shaped around your clinical guidance.', icon: 'rehab', image: './public/images/physiotherapy/05_post_surgical_rehabilitation.png?v=20261106' },
   { number: '05', title: 'Muscle & Soft Tissue Injuries', description: 'Thoughtful care to help you understand and work through soft tissue discomfort.', icon: 'muscle', image: './public/images/physiotherapy/05_muscle_soft_tissue.jpg' },
-  { number: '06', title: 'Posture & Movement Problems', description: 'Understand movement habits and build practical strategies for daily life.', icon: 'posture', image: './public/images/physiotherapy/06_posture_ergonomics.jpg' },
+  { number: '06', title: 'Posture & Movement Problems', description: 'Understand movement habits and build practical strategies for daily life.', icon: 'posture', image: './public/images/physiotherapy/06_posture_ergonomics.png?v=20261106' },
   { number: '07', title: 'Mobility & Flexibility', description: 'Work towards more confident, comfortable movement at your own pace.', icon: 'mobility', image: './public/images/physiotherapy/07_mobility_flexibility.jpg' },
   { number: '08', title: 'Strength & Functional Rehabilitation', description: 'Build strength that connects to the activities and routines you want to return to.', icon: 'strength', image: './public/images/physiotherapy/08_strength_functional_rehab.jpg' }
 ];
@@ -85,5 +90,5 @@ export const faqs = [
   { question: 'How long does a physiotherapy session take?', answer: 'Session length can vary depending on your needs and the nature of the appointment. Please ask the practice about the expected duration when booking.' },
   { question: 'Do I need a doctor’s referral?', answer: 'Referral requirements can depend on your individual situation and existing medical advice. Contact the practice to discuss what is appropriate.' },
   { question: 'How many sessions might I need?', answer: 'This varies from person to person and depends on your condition, goals and progress. Your requirements can be reviewed as treatment progresses.' },
-  { question: 'Where is Physiotherapy & Care based?', answer: 'Physiotherapy & Care is based in Goregaon (East), Mumbai – 400063. On-clinic consultations are available by appointment and home visits are arranged in nearby areas.' }
+  { question: 'Where is Physiotherapy & Care based?', answer: `Physiotherapy & Care is based at ${practice.clinic.address}. On-clinic consultations are available by appointment and home visits are arranged in nearby areas.` }
 ];

@@ -1,4 +1,4 @@
-import { practice, consultationOptions, conditions, faqs, process, reasons, treatments } from './data.js';
+import { practice, consultationOptions, faqs, process, treatments } from './data.js';
 
 const iconSvgs = {
   back: '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 11v12c0 8 5 14 13 14s11-5 11-13V12"/><path d="M12 17h8M28 17h8M13 28h8M27 28h8"/></svg>',
@@ -21,10 +21,14 @@ document.querySelectorAll('.footer-professional img').forEach((image) => { if (p
 if (practice.images.pageBackground) document.documentElement.style.setProperty('--page-background-image', `url("${practice.images.pageBackground}")`);
 if (practice.images.contactBanner) document.documentElement.style.setProperty('--contact-banner-image', `url("${practice.images.contactBanner}")`);
 
+document.querySelectorAll('[data-clinic-address]').forEach((node) => {
+  node.textContent = node.dataset.clinicAddress === 'display' ? practice.clinic.displayAddress : practice.clinic.address;
+});
+document.querySelectorAll('[data-clinic-map]').forEach((link) => { link.href = practice.clinic.mapsUrl; });
+
 const treatmentGrid = document.querySelector('#treatment-grid');
-const conditionList = document.querySelector('#condition-list');
 const processGrid = document.querySelector('#process-grid');
-const whyGrid = document.querySelector('#why-grid');
+const testimonialsGrid = document.querySelector('#testimonials-grid');
 const faqList = document.querySelector('#faq-list');
 const consultationGrid = document.querySelector('#consultation-grid');
 
@@ -34,6 +38,7 @@ if (consultationGrid) {
       <div class="consultation-card-top"><span class="consultation-badge">OPTION 0${index + 1}</span><span class="consultation-icon">${iconSvgs[item.icon]}</span></div>
       <h3>${item.label.replace(' Physiotherapy', ' <em>Physiotherapy</em>').replace(' Consultation', ' <em>Consultation</em>')}</h3>
       <p>${item.description}</p>
+      ${item.value === 'clinic' ? `<div class="consultation-location"><span>${practice.clinic.displayAddress}</span><a href="${practice.clinic.mapsUrl}" target="_blank" rel="noreferrer">View Clinic Location <span aria-hidden="true">↗</span></a></div>` : ''}
       <button class="card-link js-open-appointment" type="button" data-consultation="${item.value}">${item.value === 'home' ? 'Book a Home Visit' : 'Book an On-Clinic Consultation'} <span aria-hidden="true">↗</span></button>
     </article>`).join('');
 }
@@ -48,17 +53,26 @@ if (treatmentGrid) {
     </article>`).join('');
 }
 
-if (conditionList) {
-  conditionList.innerHTML = conditions.map((condition, index) => `<a href="#contact" class="condition-item reveal" style="--item-index:${index}"><span>${String(index + 1).padStart(2, '0')}</span><strong>${condition}</strong><b aria-hidden="true">↗</b></a>`).join('');
-}
-
 if (processGrid) {
   processGrid.innerHTML = process.map((item, index) => `<article class="process-step reveal" style="--item-index:${index}"><div class="process-top"><span>${item.number}</span>${index < process.length - 1 ? '<i aria-hidden="true"></i>' : ''}</div><h3>${item.title}</h3><p>${item.description}</p></article>`).join('');
 }
 
-if (whyGrid) {
-  whyGrid.innerHTML = reasons.map((item) => `<article class="why-card reveal"><span>${item.number}</span><h3>${item.title}</h3><p>${item.description}</p></article>`).join('');
-}
+const renderTestimonials = async () => {
+  if (!testimonialsGrid) return;
+  try {
+    const response = await fetch('./data/testimonials.json', { cache: 'no-store' });
+    if (!response.ok) throw new Error(`Testimonials request failed: ${response.status}`);
+    const { testimonials = [] } = await response.json();
+    const published = testimonials.filter((item) => item?.published);
+    testimonialsGrid.innerHTML = published.length
+      ? published.map((item) => `<article class="testimonial-card"><span class="testimonial-mark" aria-hidden="true">“</span><blockquote>${item.quote}</blockquote><footer><strong>${item.name}</strong>${item.location ? `<span>${item.location}</span>` : ''}</footer></article>`).join('')
+      : '<p class="testimonial-empty">Client experiences will appear here soon.</p>';
+  } catch (error) {
+    testimonialsGrid.innerHTML = '<p class="testimonial-empty">Client experiences will appear here soon.</p>';
+    console.error(error);
+  }
+};
+renderTestimonials();
 
 if (faqList) {
   faqList.innerHTML = faqs.map((item, index) => `<div class="faq-item reveal"><button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-${index}"><span>${item.question}</span><i aria-hidden="true">+</i></button><div class="faq-answer" id="faq-answer-${index}" role="region"><p>${item.answer}</p></div></div>`).join('');
@@ -100,12 +114,15 @@ const appointmentForm = document.querySelector('#appointment-form');
 const successMessage = document.querySelector('#form-success');
 const consultationSelect = appointmentForm?.querySelector('select[name="consultationType"]');
 const homeVisitField = appointmentForm?.querySelector('[data-home-visit-field]');
+const clinicLocation = appointmentForm?.querySelector('[data-clinic-location]');
 let lastFocused;
 
 const syncConsultationFields = () => {
   const isHomeVisit = consultationSelect?.value === 'home';
+  const isClinic = consultationSelect?.value === 'clinic';
   const area = homeVisitField?.querySelector('input[name="area"]');
   if (homeVisitField) homeVisitField.hidden = !isHomeVisit;
+  if (clinicLocation) clinicLocation.hidden = !isClinic;
   if (area) {
     area.required = isHomeVisit;
     if (!isHomeVisit) {
