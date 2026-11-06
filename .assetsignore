@@ -4,3 +4,9 @@
 node_modules/
 wrangler.jsonc
 README.md
+.dev.vars*
+.env*
+worker.js
+package.json
+package-lock.json
+.assetsignore

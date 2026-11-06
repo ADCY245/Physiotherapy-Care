@@ -112,10 +112,13 @@ const appointmentModal = document.querySelector('#appointment-modal');
 const bioModal = document.querySelector('#bio-modal');
 const appointmentForm = document.querySelector('#appointment-form');
 const successMessage = document.querySelector('#form-success');
+const formError = document.querySelector('#form-error');
+const submitButton = appointmentForm?.querySelector('button[type="submit"]');
 const consultationSelect = appointmentForm?.querySelector('select[name="consultationType"]');
 const homeVisitField = appointmentForm?.querySelector('[data-home-visit-field]');
 const clinicLocation = appointmentForm?.querySelector('[data-clinic-location]');
 let lastFocused;
+let isSubmitting = false;
 
 const syncConsultationFields = () => {
   const isHomeVisit = consultationSelect?.value === 'home';
@@ -143,6 +146,9 @@ const openModal = (modal, consultationType = '') => {
     appointmentForm.hidden = false;
     appointmentForm.closest('.modal')?.classList.remove('has-success');
     if (successMessage) successMessage.hidden = true;
+    if (formError) { formError.hidden = true; formError.textContent = ''; }
+    if (submitButton) { submitButton.disabled = false; submitButton.innerHTML = 'Send enquiry <span aria-hidden="true">↗</span>'; }
+    isSubmitting = false;
     if (consultationSelect) consultationSelect.value = consultationType;
     appointmentForm.querySelectorAll('.has-error').forEach((field) => field.classList.remove('has-error'));
     appointmentForm.querySelectorAll('.field-error').forEach((error) => { error.textContent = ''; });
@@ -192,8 +198,10 @@ const setFieldError = (field, message = '') => {
   if (error) error.textContent = message;
 };
 
-appointmentForm?.addEventListener('submit', (event) => {
+appointmentForm?.addEventListener('submit', async (event) => {
   event.preventDefault();
+  if (isSubmitting) return;
+  if (formError) { formError.hidden = true; formError.textContent = ''; }
   const fields = [...appointmentForm.querySelectorAll('input[required], select[required]')];
   let valid = true;
   fields.forEach((field) => {
@@ -205,26 +213,37 @@ appointmentForm?.addEventListener('submit', (event) => {
     if (message) valid = false;
   });
   const email = appointmentForm.querySelector('input[type="email"]');
-  if (email.value && !email.checkValidity()) { setFieldError(email, 'Please enter a valid email.'); valid = false; }
+  if (!email.checkValidity()) { setFieldError(email, 'Please enter a valid email.'); valid = false; }
   if (!valid) return;
-  const values = new FormData(appointmentForm);
-  const selectedType = values.get('consultationType') === 'home' ? 'Home Visit Physiotherapy' : 'On-Clinic Consultation';
-  const subject = 'New Physiotherapy Appointment Request';
-  const body = [
-    `Consultation type: ${selectedType}`,
-    `Name: ${values.get('fullName')}`,
-    `Phone: ${values.get('phone')}`,
-    `Email: ${values.get('email') || 'Not provided'}`,
-    `Preferred date: ${values.get('date')}`,
-    `Preferred time: ${values.get('time')}`,
-    ...(values.get('consultationType') === 'home' ? [`Home visit area: ${values.get('area')}`] : []),
-    `What they would like help with: ${values.get('reason')}`,
-    `Message: ${values.get('message') || 'Not provided'}`
-  ].join('\n');
-  window.location.href = `mailto:${practice.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  appointmentForm.hidden = true;
-  appointmentForm.closest('.modal')?.classList.add('has-success');
-  successMessage.hidden = false;
+  isSubmitting = true;
+  if (submitButton) { submitButton.disabled = true; submitButton.innerHTML = 'Sending enquiry <span aria-hidden="true">…</span>'; }
+  const values = Object.fromEntries(new FormData(appointmentForm).entries());
+  values.submissionId = globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  const genericSubmissionError = 'We couldn’t send your enquiry right now. Please try again.';
+  try {
+    const response = await fetch('/api/enquiry', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(values)
+    });
+    let result = {};
+    try { result = await response.json(); } catch { /* Use the generic failure message below. */ }
+    if (!response.ok || !result.ok) {
+      const submissionError = new Error(result.error || genericSubmissionError);
+      submissionError.publicMessage = typeof result.error === 'string' ? result.error : genericSubmissionError;
+      throw submissionError;
+    }
+    appointmentForm.hidden = true;
+    appointmentForm.closest('.modal')?.classList.add('has-success');
+    successMessage.hidden = false;
+  } catch (error) {
+    if (formError) {
+      formError.textContent = error?.publicMessage || genericSubmissionError;
+      formError.hidden = false;
+    }
+    if (submitButton) { submitButton.disabled = false; submitButton.innerHTML = 'Send enquiry <span aria-hidden="true">↗</span>'; }
+    isSubmitting = false;
+  }
 });
 
 appointmentForm?.querySelectorAll('input, select, textarea').forEach((field) => field.addEventListener('input', () => setFieldError(field)));

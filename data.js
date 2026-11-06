@@ -5,7 +5,7 @@ export const practice = {
   serviceModel: 'Home visits and on-clinic consultations by appointment.',
   phone: '+91 8591 259 330',
   phoneHref: '+918591259330',
-  email: 'drronak@physiotherapyandcare.in',
+  email: 'ronak@physiotherapyandcare.in',
   address: 'Goregaon (East), Mumbai – 400063',
   clinic: {
     address: '5V99+MF, Yashodham, Goregaon East, Mumbai, Maharashtra 400063',

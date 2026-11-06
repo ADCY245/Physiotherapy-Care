@@ -1,0 +1,15 @@
+{
+  "name": "physiotherapy-care",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node ./node_modules/wrangler/bin/wrangler.js dev",
+    "deploy": "node ./node_modules/wrangler/bin/wrangler.js deploy"
+  },
+  "dependencies": {
+    "resend": "6.37.0"
+  },
+  "devDependencies": {
+    "wrangler": "4.158.0"
+  }
+}
